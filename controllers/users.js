@@ -29,7 +29,6 @@ const createUser = (req, res, next) => {
         email,
         password: hash,
       })
-        // .then((newUser) => res.status(CREATED_CODE).send({ data: newUser }))
         .then((newUser) => {
           const { _id } = newUser;
           res.status(CREATED_CODE).send({

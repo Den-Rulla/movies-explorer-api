@@ -7,8 +7,13 @@ const NotFoundErr = require('../errors/NotFoundErr');
 const BadRequestErr = require('../errors/BadRequestErr');
 const ForbiddenErr = require('../errors/ForbiddenErr');
 
-const getSavedMovies = (req, res, next) => Movie.find({}).sort({ createdAt: -1 })
-  .then((movies) => res.status(OK_CODE).send(movies))
+const getSavedMovies = (req, res, next) => Movie.find({ owner: req.user._id })
+  .then((movies) => {
+    if (!movies) {
+      throw new NotFoundErr('Movies are not found');
+    }
+    return res.status(OK_CODE).send(movies);
+  })
   .catch(next);
 
 const saveMovie = (req, res, next) => {
@@ -47,44 +52,6 @@ const deleteMovie = (req, res, next) => {
     })
     .catch(next);
 };
-
-// const putLikeMovie = (req, res, next) => {
-//   const { movieId } = req.params;
-//   const userId = req.user._id;
-
-//   return Movie.findByIdAndUpdate(movieId, { $addToSet: { likes: userId } }, { new: true })
-//     .then((movie) => {
-//       if (!movie) {
-//         throw new NotFoundErr('Movie not found');
-//       }
-//       return res.status(OK_CODE).send(movie);
-//     })
-//     .catch((err) => {
-//       if (err.name === 'CastError') {
-//         return next(new BadRequestErr('Bad request'));
-//       }
-//       return next(err);
-//     });
-// };
-
-// const deleteLikeMovie = (req, res, next) => {
-//   const { movieId } = req.params;
-//   const userId = req.user._id;
-
-//   return Movie.findByIdAndUpdate(movieId, { $pull: { likes: userId } }, { new: true })
-//     .then((movie) => {
-//       if (!movie) {
-//         throw new NotFoundErr('Movie not found');
-//       }
-//       return res.status(OK_CODE).send(movie);
-//     })
-//     .catch((err) => {
-//       if (err.name === 'CastError') {
-//         return next(new BadRequestErr('Bad request'));
-//       }
-//       return next(err);
-//     });
-// };
 
 module.exports = {
   getSavedMovies,
