@@ -7,12 +7,6 @@ const validateUserUpdate = celebrate({
   }),
 });
 
-const validateUserId = celebrate({
-  params: Joi.object().keys({
-    userId: Joi.string().required().hex().length(24),
-  }),
-});
-
 const validateSignup = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
@@ -32,5 +26,4 @@ module.exports = {
   validateSignup,
   validateSignin,
   validateUserUpdate,
-  validateUserId,
 };

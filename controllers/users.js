@@ -11,10 +11,6 @@ const ConflictErr = require('../errors/ConflictErr');
 
 const { JWT_SECRET, NODE_ENV } = process.env;
 
-const getAllUsers = (req, res, next) => User.find({})
-  .then((users) => res.status(OK_CODE).send(users))
-  .catch(next);
-
 const createUser = (req, res, next) => {
   const {
     name,
@@ -44,24 +40,6 @@ const createUser = (req, res, next) => {
           }
           return next(err);
         });
-    });
-};
-
-const getUserById = (req, res, next) => {
-  const { userId } = req.params;
-
-  return User.findById(userId)
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundErr('User not found');
-      }
-      return res.status(OK_CODE).send(user);
-    })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        return next(new BadRequestErr('Bad request. Incorrect id'));
-      }
-      return next(err);
     });
 };
 
@@ -107,9 +85,7 @@ const login = (req, res, next) => {
 };
 
 module.exports = {
-  getAllUsers,
   createUser,
-  getUserById,
   getCurrentUser,
   updateUser,
   login,
