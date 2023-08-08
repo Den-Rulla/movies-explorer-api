@@ -9,7 +9,6 @@ const INTERNAL_SERVER_ERROR = 500;
 
 // eslint-disable-next-line no-useless-escape
 const regExpUrl = /^https?:\/\/[\w\-\.\/~:\?\#\[\]@!$&'\(\)\*\+,;=]+[\-\.\/~:\?\#\[\]@!$&'\(\)\*\+,;=]{1}[\w\-\.\/~:\?\#\[\]@!$&'\(\)\*\+,;=]+[#\/]?$/;
-// const regExpEmail = /^\S+@\S+\.\S+$/;
 
 module.exports = {
   OK_CODE,
@@ -21,5 +20,4 @@ module.exports = {
   CONFLICT_ERROR,
   INTERNAL_SERVER_ERROR,
   regExpUrl,
-  // regExpEmail,
 };
