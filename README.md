@@ -2,7 +2,7 @@
 # movies-explorer-api
 Репозиторий для бэкенд части приложения movies-explorer
   
-Адрес репозитория: https://github.com/Den-Rulla/react-mesto-api-full-gha
+Адрес репозитория: https://github.com/Den-Rulla/movies-explorer-api
 
 ## Ссылка на проект
 
