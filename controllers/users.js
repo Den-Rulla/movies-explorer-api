@@ -66,6 +66,9 @@ const updateUser = (req, res, next) => {
       return res.status(OK_CODE).send(user);
     })
     .catch((err) => {
+      if (err.code === 11000) {
+        return next(new ConflictErr('The user with this email is already registered'));
+      }
       if (err.name === 'ValidationError') {
         return next(new BadRequestErr('Bad request. Incorrect data'));
       }
